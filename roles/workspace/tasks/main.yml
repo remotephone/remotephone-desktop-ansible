@@ -1,16 +1,23 @@
 ---
-- name: Download my .vimrc
-  get_url:
-    url: https://raw.githubusercontent.com/remotephone/configs/master/.vimrc
+
+- name: update .vimrc in home folder.
+  copy:
+    src: .vimrc
     dest: /home/{{ username }}/.vimrc
-    checksum: sha256:d7cd0df948862743c9b969c8b97b7f4bc7da84ca3fd123339e56d09877bdbf0f
 
 - name: make vim color directory
-  path=/home/computer/.vim/colors state=directory
+  file:
+    path: /home/computer/.vim/colors 
+    state: directory
 
--name: Download lucario color scheme
-  get_url
-    url: https://raw.githubusercontent.com/raphamorim/lucario/master/colors/lucario.vim
-    dest: /home/{{ username }}/.vim/colors
-    checksum: sha256:03c5c9d88bb3e101071839a96ba4708731dc9465f2d757a26e33592e8620c403
+- name: create lucario vim color
+  copy:
+    src: lucario.vim
+    dest: /home/{{ username }}/.vim/colors/lucario.vim
+
+#- name: Download lucario color scheme
+#  get_url
+#    url: https://raw.githubusercontent.com/raphamorim/lucario/master/colors/lucario.vim
+#    dest: /home/{{ username }}/.vim/colors
+#    checksum: sha256:03c5c9d88bb3e101071839a96ba4708731dc9465f2d757a26e33592e8620c403
 

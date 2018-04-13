@@ -6,14 +6,20 @@
 
 - name: install packages
   become: true
-  apt: name="{{item}}" state=present
+  apt: 
+    name: "{{ item }}" 
+    state: present 
+    update_cache: yes 
+    cache_valid_time: 3600
   with_items:
     - curl
+    - libcurl3
     - make
     - vim
     - wireshark
     - chromium-browser
     - keepassx
+    - pidgin        
     - git
     - python3-pip
     - python3-dev
@@ -21,16 +27,10 @@
     - powertop
     - tlp 
     - tree
+    - virtualbox-qt
+    - virtualbox-dkms
 
-- name: Install slack
-  apt:
-    deb: https://downloads.slack-edge.com/linux_releases/slack-desktop-3.1.1-amd64.deb
-    state: present
-  become: true
+- name: Auto-tune powertop
+  command: /usr/sbin/powertop --auto-tune
 
-- name: Install VS Code
-  apt:
-    deb: https://go.microsoft.com/fwlink/?LinkID=760868
-    state: present
-  become: true
 
