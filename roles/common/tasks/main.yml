@@ -12,9 +12,8 @@
     update_cache: yes 
     cache_valid_time: 3600
   with_items:
-    - curl
-    - libcurl3
     - make
+    - curl
     - vim
     - wireshark
     - chromium-browser

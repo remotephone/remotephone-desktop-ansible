@@ -13,6 +13,11 @@
   become: true
   when: check_code.rc == 1
 
+- name: Make sure libcurl3 is installed
+  apt:
+    pkg: libcurl3
+    state: present
+
 - name: Install slack repo key
   apt_key:
     url: "{{ apt_slack_repo_key }}"
