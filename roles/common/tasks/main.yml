@@ -2,7 +2,7 @@
 
 - name: Add tlp repo
   apt_repository: repo='ppa:linrunner/tlp' state=present
-
+  when: ansible_distribution == "Ubuntu"
 
 - name: install packages
   become: true
