@@ -13,6 +13,9 @@
   become: true
   when: check_code.rc == 1
 
+- name: Install Vs Code Python extension
+  command: "code --install-extension ms-python.python"
+
 - name: Make sure libcurl3 is installed
   apt:
     pkg: libcurl3
