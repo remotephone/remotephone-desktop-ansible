@@ -1,9 +1,7 @@
 - name: setup a desktop - tested on ubuntu mate 18.04
   hosts: local
   connection: local
-  vars:
-    - user
-    
+
   roles:
     - common
     - spotify
