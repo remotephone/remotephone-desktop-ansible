@@ -10,7 +10,7 @@
 - name: Cloning some gits
   git:
     repo: "{{ item }}" 
-    dest: "/home/{{ username }}/gits"
+    dest: "/home/{{ username }}/gits/"
   with_items:
     - https://github.com/1aN0rmus/TekDefense-Automater.git
     - https://github.com/remotephone/docker-splunk.git
