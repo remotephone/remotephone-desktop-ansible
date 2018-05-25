@@ -8,7 +8,7 @@
 - name: Cloning some gits
   git:
     repo: {{ repos }}
-    with_itmes:
+    with_items:
       - https://github.com/1aN0rmus/TekDefense-Automater.git
       - https://github.com/remotephone/docker-splunk
     dest: /home/{{ username }}/gits
