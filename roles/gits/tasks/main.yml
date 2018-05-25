@@ -10,7 +10,14 @@
 - name: Cloning some gits
   git:
     repo: "{{ item }}" 
-    dest: "/home/{{ username }}/gits/{{ item.split('/|.')[5] }}"
+    dest: "/home/{{ username }}/gits/{{ item.split('/')[4] }}"
   with_items:
     - https://github.com/1aN0rmus/TekDefense-Automater.git
     - https://github.com/remotephone/docker-splunk.git
+
+- name: Fix permissions
+  file:
+    path: /home/{{ username }}/gits
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
