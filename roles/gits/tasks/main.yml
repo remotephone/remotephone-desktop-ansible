@@ -1,0 +1,14 @@
+---
+
+- name: Make sure we have a git directory
+  file:
+    path: /home/{{ username }}/gits
+    state: directory
+
+- name: Cloning some gits
+  git:
+    repo: {{ repos }}
+    with_itmes:
+      - https://github.com/1aN0rmus/TekDefense-Automater.git
+      - https://github.com/remotephone/docker-splunk
+    dest: /home/{{ username }}/gits
