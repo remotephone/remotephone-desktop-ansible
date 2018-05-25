@@ -12,5 +12,5 @@
     repo: "{{ item }}" 
     with_items:
       - https://github.com/1aN0rmus/TekDefense-Automater.git
-      - https://github.com/remotephone/docker-splunk
-    dest: /home/{{ username }}/gits
+      - https://github.com/remotephone/docker-splunk.git
+    dest: "/home/{{ username }}/gits"
