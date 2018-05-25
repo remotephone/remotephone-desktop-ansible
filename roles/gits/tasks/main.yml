@@ -1,5 +1,4 @@
 ---
-
 - name: Make sure we have a git directory
   file:
     path: /home/{{ username }}/gits
@@ -10,7 +9,7 @@
 - name: Cloning some gits
   git:
     repo: "{{ item }}" 
-    dest: "/home/{{ username }}/gits/{{ item.split('/')[4] }}"
+    dest: "/home/{{ username }}/gits/{{ item.basename | split('.')[0] }}"
   with_items:
     - https://github.com/1aN0rmus/TekDefense-Automater.git
     - https://github.com/remotephone/docker-splunk.git
