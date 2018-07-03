@@ -15,7 +15,7 @@
     - make
     - curl
     - vim
-    - wireshark
+    - wireshark-qt
     - chromium-browser
     - keepassx
     - pidgin        
@@ -28,6 +28,7 @@
     - tree
     - virtualbox-qt
     - virtualbox-dkms
+
 
 - name: Auto-tune powertop
   command: /usr/sbin/powertop --auto-tune
