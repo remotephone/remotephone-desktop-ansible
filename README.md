@@ -3,6 +3,6 @@
 This will configure your desktop and install a few things.
 
 ```
-sudo apt install ansible-playbook
+sudo apt install ansible
 sudo ansible-playbook -i HOSTS setup.yml 
 ```

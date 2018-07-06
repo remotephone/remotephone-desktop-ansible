@@ -15,7 +15,10 @@
     - make
     - curl
     - vim
+<<<<<<< HEAD
+=======
     - apt-transport-https
+>>>>>>> 5d260598c89785bf8d38acef02378097c1be92f5
     - wireshark-qt
     - chromium-browser
     - keepassx
@@ -34,6 +37,7 @@
     - nodejs
     - npm
     - p7zip-full
+
 
 
 - name: Auto-tune powertop
