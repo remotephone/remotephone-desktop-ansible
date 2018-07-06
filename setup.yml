@@ -4,8 +4,8 @@
 
   roles:
     - common
-    - spotify
-    - productivity
-    - workspace
-    - python36
+#    - spotify
+#    - productivity
+#    - workspace
+#    - python36
     - gits

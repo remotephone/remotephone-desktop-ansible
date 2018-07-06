@@ -4,3 +4,6 @@ sager_laptop: false
 github_username: remotephone
 bumblebee: false
 uname_r: 4.15.0-13-generic
+gitrepos:
+  - https://github.com/1aN0rmus/TekDefense-Automater.git
+  - https://github.com/remotephone/docker-splunk.git

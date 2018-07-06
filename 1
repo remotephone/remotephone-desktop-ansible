@@ -8,10 +8,9 @@
 
 - name: Cloning some gits
   git:
-    repo: "{{ item }}" 
-    dest: "/home/{{ username }}/gits/{{ item | urlsplit('path') | split('.')[0] }}"
-  with_items: 
-    - "{{ gitrepos }}" 
+    repo: "{{ gitrepos }}" 
+    dest: "/home/{{ username }}/gits/{{ item | split('.')[0] }}"
+  with_dict: "{{ gitrepos }}"
 
 - name: Fix permissions
   file:
