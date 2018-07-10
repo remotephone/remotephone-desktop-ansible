@@ -9,7 +9,7 @@
 - name: Cloning some gits
   git:
     repo: "{{ item }}" 
-    dest: "/home/{{ username }}/gits/{{ item | urlsplit('path') | split('.')[0] }}"
+    dest: "/home/{{ username }}/gits/{{ item | urlsplit('path') | basename | splitext | first }}"
   with_items: 
     - "{{ gitrepos }}" 
 
