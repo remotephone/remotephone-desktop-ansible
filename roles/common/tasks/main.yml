@@ -1,9 +1,5 @@
 ---
 
-- name: Add tlp repo
-  apt_repository: repo='ppa:linrunner/tlp' state=present
-  when: ansible_distribution == "Ubuntu"
-
 - name: install packages
   become: true
   apt: 
@@ -15,10 +11,7 @@
     - make
     - curl
     - vim
-<<<<<<< HEAD
-=======
     - apt-transport-https
->>>>>>> 5d260598c89785bf8d38acef02378097c1be92f5
     - wireshark-qt
     - chromium-browser
     - keepassx
@@ -29,8 +22,6 @@
     - python3-pip
     - python3-dev
     - python-dev
-    - powertop
-    - tlp 
     - tree
     - virtualbox-qt
     - virtualbox-dkms
@@ -39,14 +30,3 @@
     - p7zip-full
 
 
-
-- name: Auto-tune powertop
-  command: /usr/sbin/powertop --auto-tune
-
-- name: force synaptics driver for touch pad
-  copy:
-    src: 60-touchpad.conf
-    dest: /usr/share/X11/xorg.conf.d/60-touchpad.conf
-    owner: root
-    group: root
-    mode: 0644

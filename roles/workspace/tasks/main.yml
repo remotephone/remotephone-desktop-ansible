@@ -7,7 +7,7 @@
 
 - name: make vim color directory
   file:
-    path: /home/{{ computer }}/.vim/colors 
+    path: /home/{{ username }}/.vim/colors 
     state: directory
 
 - name: create lucario vim color

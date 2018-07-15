@@ -1,0 +1,27 @@
+---
+- name: Add tlp repo
+  apt_repository: repo='ppa:linrunner/tlp' state=present
+  when: ansible_distribution == "Ubuntu"
+
+- name: install laptop power packages
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  with_items:
+    - tlp
+    - powertop 
+
+- name: Auto-tune powertop
+  command: /usr/sbin/powertop --auto-tune
+
+- name: force synaptics driver for touch pad
+  copy:
+    src: 60-touchpad.conf
+    dest: /usr/share/X11/xorg.conf.d/60-touchpad.conf
+    owner: root
+    group: root
+    mode: 0644
+
