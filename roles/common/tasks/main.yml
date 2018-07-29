@@ -27,6 +27,7 @@
     - virtualbox-dkms
     - nodejs
     - npm
+    - awscli
     - p7zip-full
 
 
