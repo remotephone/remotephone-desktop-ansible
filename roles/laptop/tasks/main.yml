@@ -25,3 +25,26 @@
     group: root
     mode: 0644
 
+- name: get device name
+  shell: blkid | grep swap | cut -d"\"" -f2
+  register: swap_uuid 
+
+
+- name : Configure hibernate
+  copy:
+    src: com.ubuntu.enable-hibernate.pkla
+    dest: /var/lib/polkit-1/localauthority/50-local.d/com.ubuntu.enable-hibernate.pkla
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_memory_mb.swap.total == 0
+
+
+- name: Update grub file to support hibernate
+  lineinfile:
+    state: present
+    dest: /etc/default/grub
+    backrefs: yes
+    regexp: '^GRUB_CMDLINE_LINUX_DEFAULT'
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash resume=UUID={{ swap_uuid.stdout }}"'
+  notify: update-grub
