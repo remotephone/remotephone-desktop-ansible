@@ -3,10 +3,11 @@
   connection: local
 
   roles:
-#    - common
-#    - spotify
-#    - productivity
-#    - workspace
+    - common
+    - spotify
+    - productivity
+    - workspace
 #    - python36
     - laptop
-#    - gits
+    - gits
+    - docker-ce
