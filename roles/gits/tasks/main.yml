@@ -19,3 +19,4 @@
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    recurse: yes

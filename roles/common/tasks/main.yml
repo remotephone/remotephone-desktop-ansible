@@ -1,5 +1,12 @@
 ---
 
+- name: update all packages
+  become: true
+  apt: 
+    upgrade: yes
+    update_cache: yes 
+    cache_valid_time: 3600
+
 - name: install packages
   become: true
   apt: 
@@ -22,6 +29,7 @@
     - python3-pip
     - python3-dev
     - python-dev
+    - python-pip
     - tree
     - virtualbox-qt
     - virtualbox-dkms
@@ -29,5 +37,7 @@
     - npm
     - awscli
     - p7zip-full
+    - hexchat
+    - ansible
 
 
