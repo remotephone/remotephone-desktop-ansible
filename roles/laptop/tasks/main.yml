@@ -20,13 +20,16 @@
 - name: Auto-tune powertop
   command: /usr/sbin/powertop --auto-tune
 
-- name: force synaptics driver for touch pad
-  copy:
-    src: 60-touchpad.conf
-    dest: /usr/share/X11/xorg.conf.d/60-touchpad.conf
-    owner: root
-    group: root
-    mode: 0644
+
+# This seems to be unnecessary with linux mint 19 and later
+
+# - name: force synaptics driver for touch pad
+#   copy:
+#     src: 60-touchpad.conf
+#     dest: /usr/share/X11/xorg.conf.d/60-touchpad.conf
+#     owner: root
+#     group: root
+#     mode: 0644
 
 - name: get device name
   shell: blkid | grep swap | cut -d"\"" -f2
