@@ -1,0 +1,60 @@
+---
+
+- name: Check if Visual Studio Code is intalled
+  command: dpkg-query -W code
+  register: check_code
+  failed_when: false
+  changed_when: false
+
+- name: Install VS Code
+  apt:
+    deb: https://go.microsoft.com/fwlink/?LinkID=760868
+    state: present
+  become: true
+  when: check_code.rc == 1
+
+- name: Install Vs Code Python extension
+  command: "code --install-extension ms-python.python --user-data-dir /home/{{ username }}"
+
+- name: Install Vs Code Indenticator -  https://marketplace.visualstudio.com/items?itemName=SirTori.indenticator
+  command: "code --install-extension SirTori.indenticator --user-data-dir /home/{{ username }}"
+
+- name: Install Vs Code oderwat.indent-rainbow extension - https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow
+  command: "code --install-extension oderwat.indent-rainbow --user-data-dir /home/{{ username }}"
+
+- name: Install Vs Code kddejong.vscode-cfn-lint extension - https://marketplace.visualstudio.com/items?itemName=kddejong.vscode-cfn-lint
+  command: "code --install-extension kddejong.vscode-cfn-lint --user-data-dir /home/{{ username }}"
+
+- name: Fix permissions of vscode folder
+  file:
+    path: /home/{{ username }}/.vscode
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    recurse: yes
+
+- name: Make sure libcurl3 is installed
+  apt:
+    pkg: libcurl3
+    state: present
+
+- name: Install slack repo key
+  apt_key:
+    url: "{{ apt_slack_repo_key }}"
+    state: present
+
+- name: Install Slack repository
+  apt_repository: 
+    repo: "{{ apt_slack_repo }}"
+    mode: 0644
+    state: present
+
+- name: Update the apt cache
+  apt:
+    cache_valid_time: 3600
+    update_cache: yes
+
+- name: Slack Install packages
+  apt:
+    pkg: "slack-desktop"
+    state: present

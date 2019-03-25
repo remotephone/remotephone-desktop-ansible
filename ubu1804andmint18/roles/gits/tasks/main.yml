@@ -1,0 +1,22 @@
+---
+- name: Make sure we have a git directory
+  file:
+    path: /home/{{ username }}/gits
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Cloning some gits
+  git:
+    repo: "{{ item }}" 
+    dest: "/home/{{ username }}/gits/{{ item | urlsplit('path') | basename | splitext | first }}"
+  with_items: 
+    - "{{ gitrepos }}" 
+
+- name: Fix permissions
+  file:
+    path: /home/{{ username }}/gits
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    recurse: yes
