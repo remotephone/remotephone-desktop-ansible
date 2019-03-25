@@ -3,6 +3,7 @@
   connection: local
 
   roles:
+    - bootstrap
     - common
     - spotify
     - productivity
