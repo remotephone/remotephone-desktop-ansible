@@ -36,7 +36,7 @@
   register: swap_uuid 
 
 
-- name : Configure hibernate
+- name : Configure hibernate - https://forums.linuxmint.com/viewtopic.php?f=42&t=273202
   copy:
     src: com.ubuntu.enable-hibernate.pkla
     dest: /var/lib/polkit-1/localauthority/50-local.d/com.ubuntu.enable-hibernate.pkla
@@ -46,11 +46,11 @@
   when: ansible_memory_mb.swap.total == 0
 
 
-- name: Update grub file to support hibernate
+- name: Update grub file to support hibernate and fix a mouse issue on resume
   lineinfile:
     state: present
     dest: /etc/default/grub
     backrefs: yes
     regexp: '^GRUB_CMDLINE_LINUX_DEFAULT'
-    line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash resume=UUID={{ swap_uuid.stdout }}"'
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash resume=UUID={{ swap_uuid.stdout }} psmouse.synaptics_intertouch=0"'
   notify: update-grub
