@@ -6,6 +6,18 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
+- name: Configuring git alias
+  git_config:
+    name: alias.ci
+    scope: global
+    value: remotephone
+
+- name: Configuring git email
+  git_config:
+    name: user.email
+    scope: global
+    value: "remotephone@gmail.com"
+
 - name: Cloning some gits
   git:
     repo: "{{ item }}" 
