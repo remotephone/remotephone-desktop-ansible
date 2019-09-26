@@ -3,7 +3,7 @@
   apt_repository: repo='ppa:linrunner/tlp' state=present
   when: ansible_distribution == "Ubuntu"
 
-- name: install laptop power packages
+- name: install laptop power and u2f packages
   become: true
   apt:
     name:
@@ -12,6 +12,8 @@
       - tlp-rdw
       - tp-smapi-dkms
       - acpi-call-dkms
+      - libpam-u2f
+      - pamu2fcfg
     state: present
     update_cache: yes
     cache_valid_time: 3600
@@ -54,3 +56,12 @@
     regexp: '^GRUB_CMDLINE_LINUX_DEFAULT'
     line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash resume=UUID={{ swap_uuid.stdout }} psmouse.synaptics_intertouch=0"'
   notify: update-grub
+
+- name: create u2f udev file
+  copy:
+    src: 70-u2f.rules
+    dest: /etc/udev/rules.d/70-u2f.rules
+    owner: root
+    group: root
+    mode: 0644
+
