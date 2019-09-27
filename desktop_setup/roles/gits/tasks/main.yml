@@ -1,0 +1,34 @@
+---
+- name: Make sure we have a git directory
+  file:
+    path: /home/{{ username }}/gits
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configuring git alias
+  git_config:
+    name: alias.ci
+    scope: global
+    value: remotephone
+
+- name: Configuring git email
+  git_config:
+    name: user.email
+    scope: global
+    value: "remotephone@gmail.com"
+
+- name: Cloning some gits
+  git:
+    repo: "{{ item }}"
+    dest: "/home/{{ username }}/gits/{{ item | urlsplit('path') | basename | splitext | first }}"
+  with_items:
+    - "{{ gitrepos }}"
+
+- name: Fix permissions
+  file:
+    path: /home/{{ username }}/gits
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    recurse: yes

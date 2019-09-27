@@ -1,0 +1,31 @@
+---
+username: computer
+sager_laptop: false
+github_username: remotephone
+bumblebee: false
+uname_r: 4.15.0-20-generic
+packages:
+  - make
+  - curl
+  - vim
+  - apt-transport-https
+  - wireshark-qt
+  - chromium-browser
+  - keepassx
+  - pidgin
+  - git
+  - jq
+  - htop
+  - python3-pip
+  - python3-dev
+  - python-dev
+  - python-pip
+  - tree
+  - virtualbox-qt
+  - virtualbox-dkms
+  - nodejs
+  - npm
+  - awscli
+  - p7zip-full
+  - hexchat
+  - lxd

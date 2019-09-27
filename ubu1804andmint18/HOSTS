@@ -1,5 +1,0 @@
-local:
-  hosts:
-    localhost
-  vars:
-    username: computer

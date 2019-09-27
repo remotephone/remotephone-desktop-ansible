@@ -1,0 +1,96 @@
+---
+- name: Add tlp repo
+  apt_repository: repo='ppa:linrunner/tlp' state=present
+  when: ansible_distribution == "Ubuntu" and ansible_form_factor == "Notebook"
+
+- name: install laptop power and u2f packages
+  become: true
+  apt:
+    name:
+      - tlp
+      - powertop
+      - tlp-rdw
+      - tp-smapi-dkms
+      - acpi-call-dkms
+      - libpam-u2f
+      - pamu2fcfg
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_form_factor == "Notebook"
+
+- name: install Thinkpad specific packages
+  become: true
+  apt:
+    name:
+      - tlp
+      - powertop
+      - tlp-rdw
+      - tp-smapi-dkms
+      - acpi-call-dkms
+      - libpam-u2f
+      - pamu2fcfg
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_product_version is match("ThinkPad.*")
+
+
+- name: Auto-tune powertop
+  command: /usr/sbin/powertop --auto-tune
+  when: ansible_form_factor == "Notebook"
+
+
+# This seems to be unnecessary with linux mint 19 and later
+
+# - name: force synaptics driver for touch pad
+#   copy:
+#     src: 60-touchpad.conf
+#     dest: /usr/share/X11/xorg.conf.d/60-touchpad.conf
+#     owner: root
+#     group: root
+#     mode: 0644
+#     when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04' AND ansible_form_factor == "Notebook"
+
+- name: get device name
+  shell: blkid | grep swap | cut -d"\"" -f2
+  register: swap_uuid
+
+# https://forums.linuxmint.com/viewtopic.php?f=42&t=273202
+
+- name: Configure hibernate
+  copy:
+    src: com.ubuntu.enable-hibernate.pkla
+    dest: "/var/lib/polkit-1/localauthority/50-local.d/com.ubuntu.enable-hibernate.pkla"
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_memory_mb.swap.total == 0 and ansible_distribution == "Ubuntu" and ansible_distribution_version == "18.04" and ansible_form_factor == "Notebook"
+
+- name: Update grub file to support hibernate and fix a mouse issue on resume
+  lineinfile:
+    state: present
+    dest: /etc/default/grub
+    backrefs: yes
+    regexp: '^GRUB_CMDLINE_LINUX_DEFAULT'
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash resume=UUID={{ swap_uuid.stdout }} psmouse.synaptics_intertouch=0"'
+  notify: update-grub
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04' and ansible_form_factor == "Notebook"
+
+- name: install u2f packages
+  become: true
+  apt:
+    name:
+      - libpam-u2f
+      - pamu2fcfg
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: create u2f udev file
+  copy:
+    src: 70-u2f.rules
+    dest: /etc/udev/rules.d/70-u2f.rules
+    owner: root
+    group: root
+    mode: 0644
