@@ -1,14 +1,14 @@
 ---
 - name: setup a desktop - tested on ubuntu mate 18.04
-  hosts: local
+  hosts: all
   connection: local
   become: true
 
   roles:
     - common
-    - spotify
-    - productivity
-    - workspace
+    # - spotify
+    # - productivity
+    # - workspace
     - laptop
-    - gits
-    - docker-ce
+    # - gits
+    # - docker-ce

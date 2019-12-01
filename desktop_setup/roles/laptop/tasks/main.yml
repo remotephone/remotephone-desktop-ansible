@@ -1,7 +1,10 @@
 ---
-- name: Add tlp repo
-  apt_repository: repo='ppa:linrunner/tlp' state=present
-  when: ansible_distribution == "Ubuntu" and ansible_form_factor == "Notebook"
+# - name: Add tlp repo
+#   apt_repository: 
+#     repo: 'ppa:linrunner/tlp' 
+#     state: present
+#     update_cache: no
+#   when: ansible_form_factor == "Notebook"
 
 - name: install laptop power and u2f packages
   become: true
@@ -57,7 +60,7 @@
   register: swap_uuid
 
 # https://forums.linuxmint.com/viewtopic.php?f=42&t=273202
-
+# https://forums.linuxmint.com/viewtopic.php?t=287015
 - name: Configure hibernate
   copy:
     src: com.ubuntu.enable-hibernate.pkla
@@ -65,17 +68,34 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_memory_mb.swap.total == 0 and ansible_distribution == "Ubuntu" and ansible_distribution_version == "18.04" and ansible_form_factor == "Notebook"
+  when: ansible_form_factor == "Notebook"
 
-- name: Update grub file to support hibernate and fix a mouse issue on resume
+
+# This has been commented out as the general swap UUID seems to work. If it doesn't consider pointing it to the swap lvm device.
+# I install my system with mostly defaults, but do use an encrypted LVM. that never caused problems, but on a T470s I had some issues. 
+# After trying it enough it works???? ansible_distribution_version
+# - name: Update grub file to support hibernate and fix a mouse issue on if Linux Mint 19.2
+#   lineinfile:
+#     state: present
+#     dest: /etc/default/grub
+#     backrefs: yes
+#     regexp: '^GRUB_CMDLINE_LINUX_DEFAULT.*'
+#     line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash resume=UUID=dev/mapper/mint--vg-swap_1 psmouse.synaptics_intertouch=0"'
+#   notify: update-grub
+#   when: ansible_distribution == 'Linux Mint' and ansible_distribution_version == '19.2' and ansible_form_factor == "Notebook"
+
+
+- name: Update grub file to support hibernate and fix a mouse issue on resume if Ubuntu 18.0
   lineinfile:
     state: present
     dest: /etc/default/grub
     backrefs: yes
-    regexp: '^GRUB_CMDLINE_LINUX_DEFAULT'
+    regexp: '^GRUB_CMDLINE_LINUX_DEFAULT.*'
     line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash resume=UUID={{ swap_uuid.stdout }} psmouse.synaptics_intertouch=0"'
   notify: update-grub
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04' and ansible_form_factor == "Notebook"
+  # when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04' and ansible_form_factor == "Notebook"
+
+
 
 - name: install u2f packages
   become: true
