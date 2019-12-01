@@ -61,6 +61,13 @@
 
 # https://forums.linuxmint.com/viewtopic.php?f=42&t=273202
 # https://forums.linuxmint.com/viewtopic.php?t=287015
+
+### This is what finally worked to get hibernate working consistently. It takes up as much ram as you have though which is unfortunate
+# This is the first computer I've had with an nvme drive and maybe that has something to do with it, my last system with a SATA ssd
+# didn't give me have the issues this did. 
+####https://askubuntu.com/a/1132154
+
+
 - name: Configure hibernate
   copy:
     src: com.ubuntu.enable-hibernate.pkla
