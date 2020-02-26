@@ -1,2 +1,2 @@
 wheel==0.33.1
-ansible==2.7.12
+ansible==2.7.16
