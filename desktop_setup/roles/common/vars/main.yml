@@ -9,6 +9,9 @@ packages:
   - curl
   - vim
   - apt-transport-https
+  - ca-certificates
+  - gnupg-agent
+  - software-properties-common
   - wireshark-qt
   - chromium-browser
   - keepassx
@@ -29,3 +32,5 @@ packages:
   - p7zip-full
   - hexchat
   - lxd
+  - unzip
+  - nmap

@@ -25,6 +25,16 @@
 - name: Install Vs Code kddejong.vscode-cfn-lint extension - https://marketplace.visualstudio.com/items?itemName=kddejong.vscode-cfn-lint
   command: "code --install-extension kddejong.vscode-cfn-lint --user-data-dir /home/{{ username }}"
 
+- name: Install Vs Code mauve.terraform extension - https://marketplace.visualstudio.com/items?itemName=mauve.terraform
+  command: "code --install-extension mauve.terraform --user-data-dir /home/{{ username }}"
+
+- name: Install Vs Code mauve.terraform extension - https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker
+  command: "code --install-extension mauve.terraform --user-data-dir /home/{{ username }}"
+
+- name: Install Vs Code mauve.terraform extension - https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
+  command: "code --install-extension mauve.terraform --user-data-dir /home/{{ username }}"
+
+
 - name: Fix permissions of vscode folder
   file:
     path: /home/{{ username }}/.vscode

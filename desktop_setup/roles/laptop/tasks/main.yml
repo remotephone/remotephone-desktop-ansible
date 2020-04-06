@@ -13,8 +13,6 @@
       - tlp
       - powertop
       - tlp-rdw
-      - tp-smapi-dkms
-      - acpi-call-dkms
       - libpam-u2f
       - pamu2fcfg
     state: present
@@ -31,8 +29,6 @@
       - tlp-rdw
       - tp-smapi-dkms
       - acpi-call-dkms
-      - libpam-u2f
-      - pamu2fcfg
     state: present
     update_cache: yes
     cache_valid_time: 3600
@@ -42,18 +38,6 @@
 - name: Auto-tune powertop
   command: /usr/sbin/powertop --auto-tune
   when: ansible_form_factor == "Notebook"
-
-
-# This seems to be unnecessary with linux mint 19 and later
-
-# - name: force synaptics driver for touch pad
-#   copy:
-#     src: 60-touchpad.conf
-#     dest: /usr/share/X11/xorg.conf.d/60-touchpad.conf
-#     owner: root
-#     group: root
-#     mode: 0644
-#     when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04' AND ansible_form_factor == "Notebook"
 
 - name: get device name
   shell: blkid | grep swap | cut -d"\"" -f2
@@ -80,7 +64,7 @@
 
 # This has been commented out as the general swap UUID seems to work. If it doesn't consider pointing it to the swap lvm device.
 # I install my system with mostly defaults, but do use an encrypted LVM. that never caused problems, but on a T470s I had some issues. 
-# After trying it enough it works???? ansible_distribution_version
+# After trying it enough it works???? 
 # - name: Update grub file to support hibernate and fix a mouse issue on if Linux Mint 19.2
 #   lineinfile:
 #     state: present
