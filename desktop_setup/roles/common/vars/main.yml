@@ -34,3 +34,6 @@ packages:
   - lxd
   - unzip
   - nmap
+  - zsh
+  - powerline 
+  - fonts-powerline

@@ -14,3 +14,22 @@
     state: present
     update_cache: yes
     cache_valid_time: 3600
+
+- name: Copy .zshrc and template it out
+  template:
+    src: .zshrc.j2
+    dest: /home/{{ username }}/.zshrc
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: get oh-my-zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git 
+    dest: /home/{{ username }}/.oh-my-zsh
+
+- name: Fix permissions of oh-my-zsh folder
+  file:
+    path: /home/{{ username }}/.oh-my-zsh
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    recurse: yes

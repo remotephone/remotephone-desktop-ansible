@@ -1,0 +1,52 @@
+{
+    "files.autoSave": "afterDelay",
+    "yaml.customTags": [
+        "!And",
+        "!And sequence",
+        "!If",
+        "!If sequence",
+        "!Not",
+        "!Not sequence",
+        "!Equals",
+        "!Equals sequence",
+        "!Or",
+        "!Or sequence",
+        "!FindInMap",
+        "!FindInMap sequence",
+        "!Base64",
+        "!Join",
+        "!Join sequence",
+        "!Cidr",
+        "!Ref",
+        "!Sub",
+        "!Sub sequence",
+        "!GetAtt",
+        "!GetAZs",
+        "!ImportValue",
+        "!ImportValue sequence",
+        "!Select",
+        "!Select sequence",
+        "!Split",
+        "!Split sequence"
+    ],
+    "cfnLint.validateUsingJsonSchema": false,
+    "yaml.validate": false,
+    "terraform.indexing": {
+        "enabled": false,
+        "liveIndexing": false,
+        "delay": 500,
+        "exclude": [
+            ".terraform/**/*",
+            "**/.terraform/**/*"
+        ]
+    },
+    "terraform.languageServer": {
+        "enabled": true,
+        "args": []
+    },
+    // zsh setup - configure prompt, lineHeight, enable necessary fonts, and render it right
+    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.integrated.lineHeight": 1.3,
+    "terminal.integrated.fontFamily": "'monospace', 'Source Code Pro for Powerline', 'PowerlineSymbols', 'Hack Nerd Font'",
+    "terminal.integrated.rendererType": "canvas"
+    }

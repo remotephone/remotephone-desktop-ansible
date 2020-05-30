@@ -34,6 +34,13 @@
 - name: Install Vs Code mauve.terraform extension - https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
   command: "code --install-extension mauve.terraform --user-data-dir /home/{{ username }}"
 
+- name: Copy settings.json for vscode
+  copy:
+    src: settings.json
+    dest: /home/{{ username }}/.config/Code/User/settings.json
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0644'
 
 - name: Fix permissions of vscode folder
   file:
